@@ -3,7 +3,9 @@ if ( !defined( 'ABSPATH' ) ) {
     exit; // Exit if accessed directly
 }
 
-// Get default options
+/**
+ * Get default options
+ */
 function INBRMFA_get_default_options() {
     return array(
         'plugin_enabled' => 1,
@@ -24,7 +26,9 @@ function INBRMFA_get_default_options() {
     );
 }
 
-// Get option with default fallback
+/**
+ * Get option with default fallback
+ */
 function INBRMFA_get_option( $key, $default = null ) {
     $options = get_option('INBRMFA_options');
     $defaults = INBRMFA_get_default_options();
@@ -36,13 +40,17 @@ function INBRMFA_get_option( $key, $default = null ) {
     return isset($options[$key]) ? $options[$key] : $default;
 }
 
-// Plugin Menu
+/**
+ * Plugin Menu
+ */
 function INBRMFA_add_settings_page() {
     add_options_page( 'Rank Math FAQ Accordion Settings', 'Rank Math FAQ Accordion', 'manage_options', 'inb-rmfa-settings', 'INBRMFA_render_settings_page' );
 }
 add_action( 'admin_menu', 'INBRMFA_add_settings_page' );
 
-// Render settings page
+/**
+ * Render settings page
+ */
 function INBRMFA_render_settings_page() {
     ?>
     <div class="wrap inb-rmfa-settings__wrap">
@@ -88,7 +96,9 @@ function INBRMFA_render_settings_page() {
     <?php
 }
 
-// Register settings
+/**
+ * Register settings
+ */
 function INBRMFA_register_settings() {
     register_setting( 'INBRMFA_settings', 'INBRMFA_options', 'INBRMFA_sanitize_options' );
 
@@ -123,7 +133,9 @@ function INBRMFA_register_settings() {
 }
 add_action( 'admin_init', 'INBRMFA_register_settings' );
 
-// Settings callbacks
+/**
+ * Settings callbacks
+ */
 function INBRMFA_plugin_enabled_callback() {
     $value = INBRMFA_get_option('plugin_enabled');
     echo '<input type="checkbox" name="INBRMFA_options[plugin_enabled]" value="1" ' . checked(1, $value, false) . '/>';
@@ -239,7 +251,9 @@ function INBRMFA_border_radius_callback() {
     echo '</div>';
 }
 
-// Sanitizing function
+/**
+ * Sanitizing function
+ */
 function INBRMFA_sanitize_options( $input ) {
     $sanitized_input = array();
     $defaults = INBRMFA_get_default_options();
@@ -263,7 +277,9 @@ function INBRMFA_sanitize_options( $input ) {
     return $sanitized_input;
 }
 
-// Load asset file for settings page
+/**
+ * Load asset file for settings page
+ */
 function INBRMFA_enqueue_admin_scripts( $hook ) {
     if ('settings_page_inb-rmfa-settings' !== $hook) {
         return;
@@ -282,7 +298,9 @@ function INBRMFA_enqueue_admin_scripts( $hook ) {
 }
 add_action( 'admin_enqueue_scripts', 'INBRMFA_enqueue_admin_scripts' );
 
-// Reset Settings
+/**
+ * Reset Settings
+ */
 function INBRMFA_reset_settings() {
     $default_options = INBRMFA_get_default_options();
     update_option( 'INBRMFA_options', $default_options );
@@ -290,7 +308,9 @@ function INBRMFA_reset_settings() {
 }
 add_action( 'wp_ajax_INBRMFA_reset_settings', 'INBRMFA_reset_settings' );
 
-// Remove all admin notices on plugin settings page except plugin-specific ones
+/**
+ * Remove all admin notices on plugin settings page except plugin-specific ones
+ */
 function INBRMFA_remove_admin_notices() {
     $screen = get_current_screen();
     if ( isset( $screen->id ) && $screen->id === 'settings_page_inb-rmfa-settings' ) {

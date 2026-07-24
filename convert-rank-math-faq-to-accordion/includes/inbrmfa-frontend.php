@@ -3,7 +3,9 @@ if ( !defined( 'ABSPATH' ) ) {
     exit; // Exit if accessed directly
 }
 
-// Load asset files
+/**
+ * Load asset files
+ */
 function INBRMFA_load_plugin_asset_files() {
     $options = get_option('INBRMFA_options', array('plugin_enabled' => 1, 'counter_enabled' => 0, 'initial_expand_first' => 0));
    

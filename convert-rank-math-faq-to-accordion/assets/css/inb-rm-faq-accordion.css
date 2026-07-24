@@ -1,3 +1,4 @@
+/* INB Convert Rank Math FAQ to Accordion Style */
 #rank-math-faq .rank-math-list-item {
     border: var(--inbrmfa-border-width) var(--inbrmfa-border-style) var(--inbrmfa-border-color);
     border-radius: var(--inbrmfa-border-radius);
